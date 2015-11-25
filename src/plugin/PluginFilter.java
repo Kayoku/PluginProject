@@ -3,13 +3,10 @@ package plugin;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class PluginFilter implements FilenameFilter{
+public class PluginFilter implements FilenameFilter {
 
-	public PluginFilter(){
-		
-	}
+	public PluginFilter(){}
 	
-	@Override
 	public boolean accept(File f, String name) {
 		return endWithClass(name);
 	}

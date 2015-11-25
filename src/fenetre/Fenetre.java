@@ -1,14 +1,22 @@
 package fenetre;
 
 import java.awt.BorderLayout;
+import java.io.File;
+import java.util.List;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Fenetre extends JFrame{
+import plugin.PluginUpdater;
+
+public class Fenetre extends JFrame {
 	
 	protected JMenuBar menuBar;
 	protected JMenu menuFile;
@@ -20,11 +28,13 @@ public class Fenetre extends JFrame{
 	
 	public static void main(String[] args){
 		Fenetre pluginsProject = new Fenetre();
+		File dir = new File("plugins");
+		PluginUpdater pluginUpdater = new PluginUpdater(dir, pluginsProject);
 	}
 	
 	public Fenetre(){
 		
-		// Création de base de la fenêtre
+		// Crï¿½ation de base de la fenï¿½tre
 		this.setTitle("Super plugin programme !");
 		this.setSize(400, 500);
 		this.setLocationRelativeTo(null);
@@ -32,25 +42,34 @@ public class Fenetre extends JFrame{
 		
 		// Ajout de la barre de menu
 		this.menuBar = new JMenuBar();
-		this.menuFile = new JMenu("File");
 		this.menuTools = new JMenu("Tools");
-		this.menuHelp = new JMenu("Help");
 		
-		this.menuBar.add(this.menuFile);
 		this.menuBar.add(this.menuTools);
-		this.menuBar.add(this.menuHelp);
 		
 		this.setJMenuBar(this.menuBar);
 		
-		// Création du champ de texte
+		// Crï¿½ation du champ de texte
 		this.textField = new JTextArea();
 		this.scroll = new JScrollPane(this.textField);
 		this.scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.getContentPane().add(this.scroll, BorderLayout.CENTER);
 		
-		// Affiche la fenêtre
+		// Affiche la fenï¿½tre
 		this.setVisible(true);
 
 	}
+	
+	public void update(List<JMenuItem> list){
+		
+		this.menuBar.removeAll();
+		this.menuTools.removeAll();
+		
+		for(JMenuItem item : list){
+			this.menuTools.add(item);
+		}
+		
+		this.menuBar.add(this.menuTools);
+	}
+
 }
