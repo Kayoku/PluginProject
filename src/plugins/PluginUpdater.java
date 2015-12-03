@@ -1,4 +1,4 @@
-package plugin;
+package plugins;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,19 +27,19 @@ public class PluginUpdater extends PluginFinder implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
 		List<JMenuItem> listPlug = new ArrayList<JMenuItem>();
 		File[] files = getFiles();
 		String nameWithoutClass;
-		
+		System.out.println(files.length);
 		for(File file : files){
 			
+			System.out.print(this.filter.accept(file, file.getName()));
 			// Si le fichier est accepté (Donc ".class")
-			if(this.filter.accept(file, file.getName())){
+//			if(this.filter.accept(file, file.getName())){
 				nameWithoutClass = file.getName();
 				nameWithoutClass = nameWithoutClass.substring(0, nameWithoutClass.length()-6);
 				listPlug.add(new JMenuItem(nameWithoutClass));
-			}
+//			}
 			
 		}
 		

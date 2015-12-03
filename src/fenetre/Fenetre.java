@@ -1,6 +1,8 @@
 package fenetre;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
@@ -14,9 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import plugin.PluginUpdater;
+import plugins.PluginUpdater;
 
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame{
 	
 	protected JMenuBar menuBar;
 	protected JMenu menuFile;
@@ -27,8 +29,11 @@ public class Fenetre extends JFrame {
 	protected JScrollPane scroll;
 	
 	public static void main(String[] args){
+		
+	//	System.out.println("7454546.class".substring(0,"7454546.class".length()-6 ));
+	//	System.out.println("7454546.class".substring("7454546.class".length() -6,"7454546.class".length() ));
 		Fenetre pluginsProject = new Fenetre();
-		File dir = new File("plugins");
+		File dir = new File("bin/plugins");
 		PluginUpdater pluginUpdater = new PluginUpdater(dir, pluginsProject);
 	}
 	
@@ -43,7 +48,6 @@ public class Fenetre extends JFrame {
 		// Ajout de la barre de menu
 		this.menuBar = new JMenuBar();
 		this.menuTools = new JMenu("Tools");
-		
 		this.menuBar.add(this.menuTools);
 		
 		this.setJMenuBar(this.menuBar);
@@ -67,9 +71,11 @@ public class Fenetre extends JFrame {
 		
 		for(JMenuItem item : list){
 			this.menuTools.add(item);
+			
 		}
 		
 		this.menuBar.add(this.menuTools);
 	}
+
 
 }
