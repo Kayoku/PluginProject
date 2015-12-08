@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import plugins.Plugin;
+import plugins.PluginListener;
 import plugins.PluginUpdater;
 
 public class Fenetre extends JFrame{
@@ -64,18 +66,26 @@ public class Fenetre extends JFrame{
 
 	}
 	
-	public void update(List<JMenuItem> list){
+	public void update(List<JMenuItem> list) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		
-		this.menuBar.removeAll();
 		this.menuTools.removeAll();
 		
 		for(JMenuItem item : list){
+			Class c;
+			c =  Class.forName("plugins."+item.getText());
+			item.addActionListener(new PluginListener((Plugin) c.newInstance(),this));
+			item.setEnabled(true);
 			this.menuTools.add(item);
-			
 		}
-		
+		this.menuTools.setEnabled(true);
 		this.menuBar.add(this.menuTools);
 	}
 
+	public void setText(String s){
+		this.textField.setText(s);
+	}
 
+	public String getText(){
+		return this.textField.getText();
+	}
 }

@@ -18,33 +18,63 @@ public class PluginUpdater extends PluginFinder implements ActionListener {
 
 	protected Timer timer;
 	protected Fenetre fenetre;
+	protected List<JMenuItem> OldList;
 	
 	public PluginUpdater(File dir, Fenetre fenetre){
 		super(dir);
 		this.fenetre = fenetre;
-		this.timer = new Timer(200, this);
+		this.timer = new Timer(5000, this);
 		this.timer.start();
+		this.OldList = getNewMenu();
+		
+		try {
+			this.fenetre.update(getNewMenu());
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+
+		List<JMenuItem> listPlug = getNewMenu();
+		
+		if(!listPlug.equals(this.OldList)) {
+			
+			try {
+				this.fenetre.update(listPlug);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (InstantiationException e1) {
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				e1.printStackTrace();
+			}
+			
+			this.OldList = listPlug;
+		}
+	}
+	
+	private List<JMenuItem> getNewMenu(){
+		
 		List<JMenuItem> listPlug = new ArrayList<JMenuItem>();
 		File[] files = getFiles();
 		String nameWithoutClass;
-		System.out.println(files.length);
 		for(File file : files){
-			
-			System.out.print(this.filter.accept(file, file.getName()));
+
 			// Si le fichier est accepté (Donc ".class")
-//			if(this.filter.accept(file, file.getName())){
+			if(this.filter.accept(file, file.getName())){
 				nameWithoutClass = file.getName();
 				nameWithoutClass = nameWithoutClass.substring(0, nameWithoutClass.length()-6);
 				listPlug.add(new JMenuItem(nameWithoutClass));
-//			}
+			}
 			
 		}
 		
-		this.fenetre.update(listPlug);
-				
+		return listPlug;
 	}
 
 }
