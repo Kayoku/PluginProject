@@ -4,10 +4,33 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.lang.reflect.Constructor;
 
+/**
+ * 
+ * Classe permettant de filtrer les .class contenus dans "plugins" pour détecter 
+ * lesquels sont valides, et lesquels ne le sont pas. 
+ * En autre pour être valide, il faut :
+ *  - Avoir un nom de fichier terminant par ".class"
+ *  - Implémenter l'interface 'Plugin"
+ *  - Faire parti du fichier "plugins".
+ * 
+ * @author BOUCHOUCHA Jordan & MAITROT Guillaume
+ *
+ */
 public class PluginFilter implements FilenameFilter {
 
+	/**
+	 * Constructeur de PluginFilter.
+	 */
 	public PluginFilter(){}
 	
+	/**
+	 * 
+	 * Méthode de test de la classe.
+	 * 
+	 * @param f représente le fichier à tester
+	 * @param name représente le nom du fichier
+	 * @return True si le fichier est accepté comme un plugin, False si il ne l'est pas.
+	 */
 	public boolean accept(File f, String name) {
 
 		if (endWithClass(name)) {
@@ -44,6 +67,14 @@ public class PluginFilter implements FilenameFilter {
 		}
 		return false ;
 	}
+	
+	/**
+	 * 
+	 * Méthode privé permettant de tester le nom d'un fichier.
+	 * 
+	 * @param name Correspond au nom d'un fichier
+	 * @return True si la chaine termine par ".class"
+	 */
 	
 	private boolean endWithClass(String name) {
 		if(name.contains(".class")){

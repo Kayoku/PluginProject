@@ -20,6 +20,16 @@ import plugins.Plugin;
 import plugins.PluginListener;
 import plugins.PluginUpdater;
 
+/**
+ * 
+ * La classe "Fenetre" est une classe qui étend la classe JFrame permettant la création
+ * de la fenêtre, ainsi que son affichage. C'est aussi elle qui s'occupe de mettre à 
+ * jour les listes de plugins, ainsi que le texte affiché lors de l'activation d'un plugin.
+ * 
+ * @author BOUCHOUCHA Jordan & MAITROT Guillaume
+ * @version 1.0
+ */
+
 public class Fenetre extends JFrame{
 	
 	protected JMenuBar menuBar;
@@ -30,6 +40,13 @@ public class Fenetre extends JFrame{
 	protected JTextArea textField;
 	protected JScrollPane scroll;
 	
+	/**
+	 * 
+	 * Fonction principale. On instancie simplement une fenêtre et on lui 
+	 * indique ou sont les plugins.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 	//	System.out.println("7454546.class".substring(0,"7454546.class".length()-6 ));
@@ -39,6 +56,9 @@ public class Fenetre extends JFrame{
 		PluginUpdater pluginUpdater = new PluginUpdater(dir, pluginsProject);
 	}
 	
+	/**
+	 * Constructeur de fenetre.
+	 */
 	public Fenetre(){
 		
 		// Cr�ation de base de la fen�tre
@@ -66,6 +86,17 @@ public class Fenetre extends JFrame{
 
 	}
 	
+	
+	/**
+	 * 
+	 * Permet de mettre à jour la barre des plugins dans le menu. Il est appelé à la création de la fenêtre
+	 * et dès qu'il y a un changement (soit un ajout de plugin, soit une suppression) grâce au timer. (voir PluginUpdater)
+	 * 
+	 * @param list Correspond à la liste des plugins à mettre dans la barre de menu.
+	 * @throws ClassNotFoundException Si la classe n'est pas trouvé. (dans les plugins)
+	 * @throws InstantiationException Si la classe est mal instancié.
+	 * @throws IllegalAccessException Si l'accès à la classe n'est pas autorisé.
+	 */
 	public void update(List<JMenuItem> list) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		
 		this.menuTools.removeAll();
@@ -81,10 +112,22 @@ public class Fenetre extends JFrame{
 		this.menuBar.add(this.menuTools);
 	}
 
+	/**
+	 * 
+	 * Met à jour la texte contenu dans le champ de texte.
+	 * 
+	 * @param s
+	 */
 	public void setText(String s){
 		this.textField.setText(s);
 	}
 
+	/**
+	 * 
+	 * Permet de récupérer le contenu du champ de texte.
+	 * 
+	 * @return Le texte contenu dans le champ de texte.
+	 */
 	public String getText(){
 		return this.textField.getText();
 	}

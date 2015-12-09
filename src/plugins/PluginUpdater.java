@@ -14,12 +14,29 @@ import javax.swing.Timer;
 
 import fenetre.Fenetre;
 
+/**
+ * 
+ * Classe permetant de mettre à jour la fenêtre à chaque tic de timer.
+ * On test périodiquement si il n'y a pas de nouveau plugin mis dans le 
+ * fichier où sont présent les plugins (ou s'il n'y en a pas de supprimé) grâce
+ * au timer lancé dans le constructeur.
+ * 
+ * @author BOUCHOUCHA Jordan & MAITROT Guillaume
+ * @version 1.0
+ */
 public class PluginUpdater extends PluginFinder implements ActionListener {
 
 	protected Timer timer;
 	protected Fenetre fenetre;
 	protected List<JMenuItem> OldList;
 	
+	/**
+	 * 
+	 * Constructeur de PluginUpdater
+	 * 
+	 * @param dir Répertoire où sont présent les plugins.
+	 * @param fenetre Correspond à la fenêtre.
+	 */
 	public PluginUpdater(File dir, Fenetre fenetre){
 		super(dir);
 		this.fenetre = fenetre;
@@ -38,6 +55,12 @@ public class PluginUpdater extends PluginFinder implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Méthode s'activant à chaque tic du timer.
+	 * Elle teste si la liste des plugins n'a pas changé,
+	 * si elle a changé, elle le fait remarqué à la fenêtre 
+	 * qui procède également à la mise à jour.
+	 */
 	public void actionPerformed(ActionEvent e) {
 
 		List<JMenuItem> listPlug = getNewMenu();
@@ -58,6 +81,12 @@ public class PluginUpdater extends PluginFinder implements ActionListener {
 		}
 	}
 	
+	/**
+	 * 
+	 * Méthode privée permettant de retourner la liste des plugins accepté dans le répertoire.
+	 * 
+	 * @return Liste des plugins actuelles.
+	 */
 	private List<JMenuItem> getNewMenu(){
 		
 		List<JMenuItem> listPlug = new ArrayList<JMenuItem>();
